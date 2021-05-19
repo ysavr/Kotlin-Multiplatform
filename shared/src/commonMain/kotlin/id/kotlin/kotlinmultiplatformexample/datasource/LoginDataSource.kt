@@ -1,10 +1,12 @@
-package id.kotlin.kotlinmultiplatformexample.data
+package id.kotlin.kotlinmultiplatformexample.datasource
 
+import id.kotlin.kotlinmultiplatformexample.data.Result
 import id.kotlin.kotlinmultiplatformexample.data.model.UserModel
 import kotlin.random.Random
 
 class LoginDataSource {
 
+    @ExperimentalStdlibApi
     fun login(username: String, password: String): Result<UserModel> {
         return try {
             if (password.lowercase() == username.lowercase()) {
