@@ -13,7 +13,7 @@ class RocketDataSource {
             val request = api.getAllLaunches()
             Result.Success(request)
         } catch (e: Throwable) {
-            Result.Error(RuntimeException("Error login", e))
+            Result.Error(RuntimeException("Error Getting Data", e))
         }
     }
 }
