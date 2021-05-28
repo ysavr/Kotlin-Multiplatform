@@ -4,7 +4,7 @@ import id.kotlin.kotlinmultiplatformexample.data.remote.Links
 import id.kotlin.kotlinmultiplatformexample.data.remote.Rocket
 import id.kotlin.kotlinmultiplatformexample.data.remote.RocketLaunch
 
-internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
+class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = AppDatabase(databaseDriverFactory.createDriver())
     private val query = database.appDatabaseQueries
 

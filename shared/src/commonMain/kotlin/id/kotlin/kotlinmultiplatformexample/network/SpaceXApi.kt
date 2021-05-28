@@ -1,4 +1,4 @@
-package id.kotlin.kotlinmultiplatformexample.data.network
+package id.kotlin.kotlinmultiplatformexample.network
 
 import id.kotlin.kotlinmultiplatformexample.data.remote.RocketLaunch
 import io.ktor.client.*

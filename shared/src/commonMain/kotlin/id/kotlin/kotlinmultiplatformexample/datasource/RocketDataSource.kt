@@ -1,7 +1,7 @@
 package id.kotlin.kotlinmultiplatformexample.datasource
 
 import id.kotlin.kotlinmultiplatformexample.data.Result
-import id.kotlin.kotlinmultiplatformexample.data.network.SpaceXApi
+import id.kotlin.kotlinmultiplatformexample.network.SpaceXApi
 import id.kotlin.kotlinmultiplatformexample.data.remote.RocketLaunch
 import id.kotlin.kotlinmultiplatformexample.db.DatabaseDriverFactory
 import id.kotlin.kotlinmultiplatformexample.db.Database

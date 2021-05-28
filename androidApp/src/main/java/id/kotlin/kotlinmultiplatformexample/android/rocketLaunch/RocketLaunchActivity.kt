@@ -28,7 +28,8 @@ class RocketLaunchActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        viewModel.getRockets(database)
+//        viewModel.getRockets(database)
+        viewModel.getRocketFromSDK(database)
 
         setupObserver()
         setupView()
