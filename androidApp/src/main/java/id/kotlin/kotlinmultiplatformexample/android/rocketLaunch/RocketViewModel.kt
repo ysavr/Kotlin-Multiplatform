@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import id.kotlin.kotlinmultiplatformexample.android.utils.Resource
 import id.kotlin.kotlinmultiplatformexample.data.Result
 import id.kotlin.kotlinmultiplatformexample.data.remote.RocketLaunch
+import id.kotlin.kotlinmultiplatformexample.db.DatabaseDriverFactory
 import id.kotlin.kotlinmultiplatformexample.repository.RocketRepository
 import kotlinx.coroutines.launch
 
@@ -17,11 +18,11 @@ class RocketViewModel: ViewModel() {
     private val _rockets = MutableLiveData<Resource<List<RocketLaunch>>>()
     val rockets: LiveData<Resource<List<RocketLaunch>>> get() = _rockets
 
-    fun getRockets() {
+    fun getRockets(database: DatabaseDriverFactory) {
         _rockets.value = Resource.loading()
         viewModelScope.launch {
             try {
-                val result = repository.getLaunches()
+                val result = repository.getLaunches(database)
                 if (result is Result.Success) {
                     _rockets.value = Resource.success(result.data)
                 } else if (result is Result.Error) {

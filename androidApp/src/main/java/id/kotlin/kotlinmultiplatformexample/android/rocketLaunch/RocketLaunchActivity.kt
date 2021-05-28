@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import id.kotlin.kotlinmultiplatformexample.android.databinding.ActivityRocketLaunchBinding
 import id.kotlin.kotlinmultiplatformexample.android.databinding.ContentRocketLaunchBinding
 import id.kotlin.kotlinmultiplatformexample.android.utils.Resource
+import id.kotlin.kotlinmultiplatformexample.db.DatabaseDriverFactory
 
 class RocketLaunchActivity : AppCompatActivity() {
 
@@ -18,6 +18,7 @@ class RocketLaunchActivity : AppCompatActivity() {
 
     private var progressDialog: ProgressDialog? = null
     private val viewModel: RocketViewModel by viewModels()
+    private val database = DatabaseDriverFactory(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class RocketLaunchActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        viewModel.getRockets()
+        viewModel.getRockets(database)
 
         setupObserver()
         setupView()
