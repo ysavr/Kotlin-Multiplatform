@@ -12,15 +12,20 @@ class RocketDataSource {
 
     suspend fun rocket(databaseDriverFactory: DatabaseDriverFactory): Result<List<RocketLaunch>> {
         val db = Database(databaseDriverFactory)
-        return try {
-            val request = api.getAllLaunches()
-            request.also {
-                db.clearDatabase()
-                db.createLaunches(it)
+        val cache = db.getAllLaunches()
+        return if (cache.isNotEmpty()) {
+            Result.Success(cache)
+        } else {
+            try {
+                api.getAllLaunches().also {
+                    db.clearDatabase()
+                    db.createLaunches(it)
+                }
+                val caches = db.getAllLaunches()
+                Result.Success(caches)
+            } catch (e: Throwable) {
+              Result.Error(RuntimeException("Error Getting Data", e))
             }
-            Result.Success(request)
-        } catch (e: Throwable) {
-            Result.Error(RuntimeException("Error Getting Data", e))
         }
     }
 }
