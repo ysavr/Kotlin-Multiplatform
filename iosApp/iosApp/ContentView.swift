@@ -12,39 +12,53 @@ struct ContentView: View {
     @State private var status: String = ""
     @State private var showToast = false
     
+    @State private var selection: Int?
+    
     @ObservedObject var viewModel: ContentView.ViewModel
+    let sdk = SpaceXSDK(databaseDriverFactory: DatabaseDriverFactory())
     
     var body: some View {
-        VStack{
-            Header()
-            
-            TextField("Enter your username", text:$username)
-                .padding()
-                .background(lightGreyColor)
-                .cornerRadius(5.0)
-                .padding(.bottom, 20)
-            
-            SecureField("Enter your password", text:$password)
-                .padding()
-                .background(lightGreyColor)
-                .cornerRadius(5.0)
-                .padding(.bottom, 20)
-            
-            Button(action:{
-                print(self.$username)
-                print(self.$password)
-                let loginCheck = viewModel.login(username: self.username, password: self.password)
-                status = loginCheck
+        NavigationView {
+            VStack{
+                Header()
                 
-                showToast.toggle()
+                TextField("Enter your username", text:$username)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                    .padding(.bottom, 20)
                 
-            }) {
-                ButtonLogin()
+                SecureField("Enter your password", text:$password)
+                    .padding()
+                    .background(lightGreyColor)
+                    .cornerRadius(5.0)
+                    .padding(.bottom, 20)
+
+                NavigationLink(
+                    destination: RocketView(viewModel: .init(sdk: sdk)),
+                    tag: 1,
+                    selection: self.$selection
+                ) {
+                    Text("")
+                }
+                Button(action:{
+                    print(self.$username)
+                    print(self.$password)
+                    let loginCheck = viewModel.login(username: self.username, password: self.password)
+                    status = loginCheck
+                    if (status != "Login Failed") {
+                        self.selection = 1
+                    }
+                    showToast.toggle()
+                    
+                }) {
+                    ButtonLogin()
+                }
             }
-        }
-        .padding()
-        .toast(isPresenting: $showToast){
-            AlertToast(displayMode: .hud, type: .regular, title: status)
+            .padding()
+            .toast(isPresenting: $showToast){
+                AlertToast(displayMode: .hud, type: .regular, title: status)
+            }
         }
     }
 }
