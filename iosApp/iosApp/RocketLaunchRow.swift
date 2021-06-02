@@ -19,7 +19,7 @@ struct RocketLaunchRow: View {
                 Text(launchText).foregroundColor(launchColor)
                 Text("Launch year: \(String(rocketLaunch.launchYear))")
                 Text("Launch details: \(rocketLaunch.details ?? "")")
-            }
+            }.padding(.top, 12.0)
             Spacer()
         }
     }
